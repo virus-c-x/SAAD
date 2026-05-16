@@ -1,7 +1,7 @@
 # 🟣 VIRUS TEAM
 
 <p align="center">
-  <img src="https://i.ibb.co/qF25bBPX/banner.png" width="80%" />
+  <img src="https://i.ibb.co/qF25bBPX/banner.png" width="50%" />
 </p>
 
 <p align="center">
