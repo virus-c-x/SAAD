@@ -1,7 +1,7 @@
 # 🟣 VIRUS TEAM
 
-<p
-  <img src="https://i.ibb.co/qF25bBPX/banner.png" width="50%" />
+<p align="center">
+  <img src="./assets/banner1.png" alt="Virus Team Banner" width="100%" />
 </p>
 
 <p align="center">
@@ -85,7 +85,7 @@
 
 ---
 
-## 🟣 VIRUS 
+## 🟣 VIRUS
 
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=22&pause=900&color=8A2BE2&center=true&vCenter=true&width=700&lines=Virus+Team;Build.+Deploy.+Scale." />
