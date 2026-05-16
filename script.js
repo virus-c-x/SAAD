@@ -1,5 +1,5 @@
 /**
- * Virus Team | Premium Portfolio - Interactive Logic
+ * Saad Link Portfolio - Interactive Logic
  */
 
 document.addEventListener('DOMContentLoaded', () => {
