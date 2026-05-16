@@ -1,7 +1,7 @@
 # 🟣 VIRUS TEAM
 
 <p align="center">
-  <img src="./assets/banner1.png" alt="Virus Team Banner" width="100%" />
+  <img src="./assets/banner 1.png" alt="Virus Team Banner" width="100%" />
 </p>
 
 <p align="center">
