@@ -52,9 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateLoader = () => {
         createParticles();
+        const startTime = Date.now();
+        const timeout = 6000; // 6s Max loading time safety
+
         const interval = setInterval(() => {
-            progress += Math.random() * 4;
-            if (progress >= 100) {
+            const elapsed = Date.now() - startTime;
+            
+            // Accelerate progress if random is too slow
+            progress += Math.random() * 8 + (elapsed / 1000); 
+            
+            if (progress >= 100 || elapsed >= timeout) {
                 progress = 100;
                 clearInterval(interval);
                 finishLoading();
@@ -71,12 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (statusText && statusText.textContent !== statusMessages[msgIndex]) {
                 statusText.textContent = statusMessages[msgIndex];
             }
-        }, 100);
+        }, 80);
     };
 
     const finishLoading = () => {
         setTimeout(() => {
-            loader.classList.add('fade-out');
+            if (loader) loader.classList.add('fade-out');
             
             // Re-initialize icons when content becomes visible
             if (typeof lucide !== 'undefined') {
@@ -86,13 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Start revealing content
             setTimeout(() => {
                 revealOnLoad();
-            }, 500);
+            }, 300);
 
             // Clean up loader from DOM after transition
             setTimeout(() => {
-                loader.style.display = 'none';
-            }, 1500);
-        }, 500);
+                if (loader) loader.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Ensure scroll is enabled
+            }, 1200);
+        }, 300);
     };
 
     updateLoader();
@@ -101,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealElements = document.querySelectorAll('[data-reveal]');
     
     const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -20px 0px'
     };
 
     const revealObserver = new IntersectionObserver((entries) => {
@@ -116,13 +124,25 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
 
     function revealOnLoad() {
-        // Force top elements to reveal if they are within viewport
-        document.querySelector('.profile-section').style.opacity = '1';
-        document.querySelector('.profile-section').style.transform = 'translateY(0)';
+        const profileSection = document.querySelector('.profile-section');
+        if (profileSection) {
+            profileSection.style.opacity = '1';
+            profileSection.style.transform = 'translateY(0)';
+            profileSection.classList.add('visible');
+        }
+        
+        // Also ensure all visible elements on screen are revealed
+        const onScreenElements = document.querySelectorAll('[data-reveal]');
+        onScreenElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                el.classList.add('visible');
+            }
+        });
     }
 
     // 4. Mouse Move Ambient Parallax
-    const auroras = document.querySelectorAll('.aurora');
+    const auroras = document.querySelectorAll('.aurora, .profile-glow-aura');
     const container = document.querySelector('.aurora-container');
 
     window.addEventListener('mousemove', (e) => {
@@ -179,13 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Handle profile section initial animation override
-    const profileSection = document.querySelector('.profile-section');
-    profileSection.style.opacity = '0';
-    profileSection.style.transform = 'translateY(20px)';
-    profileSection.style.transition = 'all 1s cubic-bezier(0.2, 0.8, 0.2, 1)';
-    profileSection.style.transitionDelay = '0.3s';
 
     // 7. Music Box Toggle Logic
     const musicToggle = document.getElementById('music-toggle');

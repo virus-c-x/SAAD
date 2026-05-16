@@ -56,6 +56,8 @@
 
 .loader-overlay.fade-out {
     transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
 }
 
 .loader-content {
